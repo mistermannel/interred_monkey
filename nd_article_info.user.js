@@ -2,11 +2,11 @@
 // @name ND Article ID
 // @namespace ND
 // @author Netdoktor.de GmbH
-// @include /^.https?:\/\/(www|stage)\.netdoktor\.de/*
+// @include /^.https?:\/\/(www|stage)\.netdoktor\.de.*/
 // @include /^.*dev\.cms\.nd\-intern:.*/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.1
+// @version 2.2
 // @grant none
 // ==/UserScript==
 
