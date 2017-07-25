@@ -1,7 +1,9 @@
 // ==UserScript==
 // @name         ND Article ID
 // @namespace    http://netdoktor.de/
-// @version      0.3
+// @version      1
+// @updateURL    http://bitbucket.netdoktor.local/projects/IR/repos/interred_monkey/raw/nd_article_info.js
+// @downloadURL  http://bitbucket.netdoktor.local/projects/IR/repos/interred_monkey/raw/nd_article_info.js
 // @description  try to take over the world!
 // @author       Netdoktor.de GmbH
 // @include      http://www.netdoktor.de/*
