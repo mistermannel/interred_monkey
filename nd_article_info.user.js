@@ -3,8 +3,8 @@
 // @namespace ND
 // @author Netdoktor.de GmbH
 // @include http://www.netdoktor.de/*
-// @downloadURL http://bitbucket.netdoktor.local/projects/IR/repos/interred_monkey/raw/nd_article_info.js
-// @updateURL http://bitbucket.netdoktor.local/projects/IR/repos/interred_monkey/raw/nd_article_info.js
+// @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
+// @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @version 2
 // @grant none
 // ==/UserScript==
