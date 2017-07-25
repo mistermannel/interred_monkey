@@ -9,7 +9,7 @@
 // @include /^.*dev\.cms\.nd\-intern:.*/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.4
+// @version 2.5
 // @grant none
 // ==/UserScript==
 
