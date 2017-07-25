@@ -1,14 +1,13 @@
 // ==UserScript==
-// @name         ND Article ID
-// @namespace    http://netdoktor.de/
-// @version      2
-// @updateURL    https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.js
-// @downloadURL  https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.js
-// @description  try to take over the world!
-// @author       Netdoktor.de GmbH
-// @include      http://www.netdoktor.de/*
-// @include      https://www.netdoktor.de/*
-// @grant        none
+// @name ND Article ID
+// @namespace http://netdoktor.de/
+// @version 2
+// @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.js
+// @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.js
+// @description try to take over the world!
+// @author Netdoktor.de GmbH
+// @include http://www.netdoktor.de/*
+// @include https://www.netdoktor.de/*
 // ==/UserScript==
 
 (function() {
