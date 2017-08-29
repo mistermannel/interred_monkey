@@ -7,6 +7,7 @@
 // @include http://stage.netdoktor.de/*
 // @include https://stage.netdoktor.de/*
 // @include /^.*dev\.cms\.nd\-intern:.*/
+// @include http://netdoktor.dev/*
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @version 2.5
