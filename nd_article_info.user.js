@@ -7,15 +7,26 @@
 // @include http://stage.netdoktor.de/*
 // @include https://stage.netdoktor.de/*
 // @include /^.*dev\.cms\.nd\-intern:.*/
-// @include http://netdoktor.dev/*
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.5
+// @version 2.6
 // @grant none
 // ==/UserScript==
 
 (function() {
     'use strict';
+
+    // method to set sourcepoint environment to stage or public
+    window.setSourcepointEnv = function (envName) {
+        if((envName == 'stage') || (envName == 'public')) {
+            document.getElementById("sourcepointEnvIFrame").src='http://sp-messaging.netdoktor.de/mms/qa_set_env?env=' + envName;
+        }
+    };
+    // controls to set sourcepoint env
+    var codeSourcePoint = '<iframe id="sourcepointEnvIFrame" height="0" width="0" border="0" style="border:0px;"></iframe>' +
+        '<strong>sourcepoint: </strong><a onClick="javascript:window.setSourcepointEnv(\'stage\');" href="#" style="font-size:14px;">stage</a> | <a onClick="javascript:window.setSourcepointEnv(\'public\');" href="#" style="font-size:14px;">public</a><br />';
+
+
     var displayInfo = false;
     var editorialInfoDiv = document.createElement('div');
     editorialInfoDiv.className = "article-icd";
@@ -54,6 +65,8 @@
             '<strong>source: </strong>interred<br />' +
             '<strong>type: </strong>'+articleType+'<br />' +
             '<br />' +
+            codeSourcePoint +
+            '<br />' +
             'Herzlichen Gru&szlig;,<br .>Euer Produktmanagement.' +
             '</div></details>';
     } else if(dataLayer[0].page.pageType == 'cms') {
@@ -75,6 +88,8 @@
             '<summary class="details-header"><strong>cms page id: </strong><span class="editorial-info">'+pageId+'</span> <strong>cs-id: </strong>'+pageCsId+'</summary>' +
             '<div class="details-info">' +
             '<strong>created: </strong>'+pageDate+'<br />' +
+            '<br />' +
+            codeSourcePoint +
             '<br />' +
             'Herzlichen Gru&szlig;,<br .>Euer Produktmanagement.' +
             '</div></details>';
