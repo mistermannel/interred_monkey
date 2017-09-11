@@ -19,7 +19,7 @@
     // method to set sourcepoint environment to stage or public
     window.setSourcepointEnv = function (envName) {
         if((envName == 'stage') || (envName == 'public')) {
-            document.getElementById("sourcepointEnvIFrame").src='http://sp-messaging.netdoktor.de/mms/qa_set_env?env=' + envName;
+            document.getElementById("sourcepointEnvIFrame").src='http://ressource1.netdoktor.de/mms/qa_set_env?env=' + envName;
         }
     };
     // controls to set sourcepoint env
