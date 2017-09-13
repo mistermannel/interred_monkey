@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name IR Monkey
+// @name ND Article ID
 // @namespace ND
 // @author ND
 // @include http://www.netdoktor.de/*
