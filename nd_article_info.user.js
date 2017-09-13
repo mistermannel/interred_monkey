@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name ND Article ID
 // @namespace ND
-// @author ND
+// @author Netdoktor.de GmbH
 // @include http://www.netdoktor.de/*
 // @include https://www.netdoktor.de/*
 // @include http://stage.netdoktor.de/*
@@ -9,7 +9,7 @@
 // @include /^.*cms\.nd\-intern:.*/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.9
+// @version 2.10
 // @grant none
 // ==/UserScript==
 
@@ -17,7 +17,7 @@
     'use strict';
     
     var ndirmFunctions = window.ndirmFunctions = {};
-	var ndirmVersion = "2.9"
+	var ndirmVersion = "2.10"
 
     /*
      * article navigation
