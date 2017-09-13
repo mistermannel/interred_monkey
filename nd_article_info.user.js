@@ -8,7 +8,7 @@
 // @include /^https?://(.*\.)?netdoktor\.dev/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.11
+// @version 2.12
 // @grant none
 // ==/UserScript==
 
@@ -16,7 +16,7 @@
     'use strict';
     /*global dataLayer */
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.11";
+    var ndirmVersion = "2.12";
 
     /*
      * article navigation
@@ -84,6 +84,7 @@
             '  <div>' +
             '    <md-divider></md-divider><div class="ndirm-acc-head ndirm-infohead ndirm-link ndirm-icons-down">Meta Info</div>' +
             '    <div class="ndirm-acc-panel-open ndirm-infocontent">' +
+            '    <strong>master-id: </strong>' + pageId + '<br />' +
             '    <strong>cs-id: </strong>' + csId + '<br />' +
             '    <strong>main topic: </strong>' + articleTopic + '<br />' +
             '    <strong>source: </strong>interred<br />' +
@@ -139,7 +140,7 @@
     var editorialInfoDiv       = document.createElement('div');
     editorialInfoDiv.className = "article-icd";
     editorialInfoDiv.innerHTML = '<div class="ndirm-infobox"><div class="ndirm-acc-head ndirm-infotitle ndirm-icons-down"><span class="ndirm-link">' + pageType +
-        '</span> (id:<span class="ndirm-selectall">' + pageId + '</span>)</div>' +
+        '</span> (id: <span class="ndirm-selectall">' + pageId + '</span>)</div>' +
         '<div class="ndirm-acc-panel"><form onsubmit="window.ndirmFunctions.gotoArticle(); return false;">' +
         '<input id="ndirm-goto-id" class="ndirm-input" placeholder="Enter article id" type="number" style="width:100px;" required/>&nbsp;&nbsp;' +
         '<a href="javascript:void(0);" onClick="form.submit();" class="ndirm-link">Go to article</a></form>' +
