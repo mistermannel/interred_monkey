@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name ND Article ID
+// @name Interred Monkey
 // @namespace ND
 // @author Netdoktor.de GmbH
 // @include /^https?://www\.netdoktor\.de/
@@ -8,7 +8,7 @@
 // @include /^https?://(.*\.)?netdoktor\.dev/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.12
+// @version 2.13
 // @grant none
 // ==/UserScript==
 
@@ -16,7 +16,7 @@
     'use strict';
     /*global dataLayer */
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.12";
+    var ndirmVersion = "2.13";
 
     /*
      * article navigation
@@ -32,13 +32,13 @@
     var pageType = 'n/a';
     var pageId   = 'n/a';
     if (dataLayer[0].page.pageType === 'interred') {
-        pageType = 'IR article';
+        pageType = 'InterRed';
         try {
             pageId = dataLayer[0].page.articleID;
         } catch (error) {
         }
     } else {
-        pageType = 'CMS page';
+        pageType = 'CMS';
         try {
             pageId = dataLayer[0].page.cmsPageId;
         } catch (error) {
@@ -84,8 +84,8 @@
             '  <div>' +
             '    <md-divider></md-divider><div class="ndirm-acc-head ndirm-infohead ndirm-link ndirm-icons-down">Meta Info</div>' +
             '    <div class="ndirm-acc-panel-open ndirm-infocontent">' +
-            '    <strong>master-id: </strong>' + pageId + '<br />' +
-            '    <strong>cs-id: </strong>' + csId + '<br />' +
+            '    <strong>master-id: </strong><span class="ndirm-selectall">' + pageId + '</span><br />' +
+            '    <strong>cs-id: </strong><span class="ndirm-selectall">' + csId + '</span><br />' +
             '    <strong>main topic: </strong>' + articleTopic + '<br />' +
             '    <strong>source: </strong>interred<br />' +
             '    <strong>interred-type: </strong>' + interredType + '<br />' +
@@ -107,7 +107,7 @@
             '  <div>' +
             '    <md-divider></md-divider><div class="ndirm-acc-head ndirm-infohead ndirm-link ndirm-icons-down">Meta Info</div>' +
             '    <div class="ndirm-acc-panel-open ndirm-infocontent">' +
-            '    <strong>cs-id: </strong>' + pageCsId + '<br />' +
+            '    <strong>cs-id: </strong><span class="ndirm-selectall">' + pageCsId + '</span><br />' +
             '    <strong>created: </strong>' + pageDate + '<br />' +
             '    </div>' +
             '  </div>';
@@ -128,7 +128,7 @@
             '    <md-divider></md-divider><div class="ndirm-acc-head ndirm-infohead ndirm-link ndirm-icons-down">SourcePoint</div>' +
             '    <div class="ndirm-acc-panel-open ndirm-infocontent">' +
             '      <iframe id="sourcepointEnvIFrame" height="0" width="0" style="border:0;"></iframe>' +
-            '      <strong>sourcepoint: </strong>' +
+            '      <strong>set environment: </strong>' +
             '<a onClick="window.ndirmFunctions.setSourcepointEnv(\'stage\');" href="javascript:void(0);" style="font-size:14px;">stage</a> | ' +
             '<a onClick="window.ndirmFunctions.setSourcepointEnv(\'public\');" href="javascript:void(0);" style="font-size:14px;">public</a>' +
             '    </div>' +
@@ -139,8 +139,8 @@
      */
     var editorialInfoDiv       = document.createElement('div');
     editorialInfoDiv.className = "article-icd";
-    editorialInfoDiv.innerHTML = '<div class="ndirm-infobox"><div class="ndirm-acc-head ndirm-infotitle ndirm-icons-down"><span class="ndirm-link">' + pageType +
-        '</span> (id: <span class="ndirm-selectall">' + pageId + '</span>)</div>' +
+    editorialInfoDiv.innerHTML = '<div class="ndirm-infobox-collapsed"><div id="ndirm-header" class="ndirm-acc-head ndirm-infotitle ndirm-icons-down"><span class="ndirm-link">' + pageType +
+        '</span> (<span class="ndirm-selectall">' + pageId + '</span>)</div>' +
         '<div class="ndirm-acc-panel"><form onsubmit="window.ndirmFunctions.gotoArticle(); return false;">' +
         '<input id="ndirm-goto-id" class="ndirm-input" placeholder="Enter article id" type="number" style="width:100px;" required/>&nbsp;&nbsp;' +
         '<a href="javascript:void(0);" onClick="form.submit();" class="ndirm-link">Go to article</a></form>' +
@@ -163,6 +163,7 @@
         var editorialInfoStyle       = document.createElement('style');
         editorialInfoStyle.innerHTML = '.ndirm-selectall { -webkit-user-select: all; -moz-user-select: all; -ms-user-select: all; user-select: all; }' +
             '.ndirm-infobox { z-index:99; margin:10px; padding:8px 16px 8px 16px; background-color: #ffffff; background-color: var(--white); box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5); position: fixed; top: 0;px left: 0; width: 300px; background: #fff; opacity: 0.9; font-family:Roboto, sans-serif; font-size:14px; line-height:23.8px; text-size-adjust:100%; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:rgba(0, 0, 0, 0); }' +
+            '.ndirm-infobox-collapsed { z-index:99; margin:10px 60px 10px 60px; padding:8px 16px 8px 16px; background-color: #ffffff; background-color: var(--white); box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5); position: fixed; top: 0;px left: 0; width: 200px; background: #fff; opacity: 0.9; font-family:Roboto, sans-serif; font-size:14px; line-height:23.8px; text-size-adjust:100%; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:rgba(0, 0, 0, 0); }' +
             '.ndirm-infotitle { margin-top:8px; margin-left:0px; margin-bottom:8px; }' +
             '.ndirm-infohead { margin-top:8px; margin-left:0px; margin-bottom:8px; }' +
             '.ndirm-infocontent { margin-top:0px; margin-left:8px; margin-bottom:8px; }' +
@@ -193,6 +194,10 @@
             to highlight the button that controls the panel */
             this.classList.toggle("ndirm-icons-up");
             this.classList.toggle("ndirm-icons-down");
+            if (this.id == 'ndirm-header') {
+                this.parentElement.classList.toggle("ndirm-infobox");
+                this.parentElement.classList.toggle("ndirm-infobox-collapsed");
+            }
 
             /* Toggle between hiding and showing the active panel */
             var panel = this.nextElementSibling;
