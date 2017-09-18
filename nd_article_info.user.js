@@ -8,22 +8,37 @@
 // @include /^https?://(.*\.)?netdoktor\.dev/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.13
+// @version 2.14
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
-    /*global dataLayer */
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.13";
+    var ndirmVersion = "2.14";
 
     /*
      * article navigation
      */
     ndirmFunctions.gotoArticle = function () {
         var articleId        = document.getElementById("ndirm-goto-id").value;
-        window.location.href = "http://www.netdoktor.de/content/" + articleId;
+        window.location.href = window.location.origin + "/content/" + articleId;
+    };
+
+    /*
+     * env navigation
+     */
+    ndirmFunctions.gotoEnvironment = function (envName) {
+        var envDomain = 'http://www.netdoktor.de';
+        if(envName == 'stage') envDomain = 'http://stage.netdoktor.de';
+        else if(envName == 'test') {
+            var domainPort = document.getElementById("ndirm-testenv-port").value;
+            if(/^[0-9]+$/.exec(domainPort) !== null) {
+                setCookie('ndirm-port', domainPort, 90);
+                envDomain = 'https://cms.nd-intern:' + domainPort;
+            }
+        }
+        window.location.href = envDomain + window.location.pathname;
     };
 
     /*
@@ -114,6 +129,24 @@
     }
 
     /*
+     * env switch
+     */
+    // controls to set env
+    var lastPort = getCookie('ndirm-port') === undefined ? '' : getCookie('ndirm-port');
+    var codeEnvironmentSelector =
+            '  <div>' +
+            '    <md-divider></md-divider><div class="ndirm-acc-head ndirm-infohead ndirm-link ndirm-icons-down">Switch Environment</div>' +
+            '    <div class="ndirm-acc-panel-open ndirm-infocontent">' +
+            '<form id="ndirm-envForm" onsubmit="window.ndirmFunctions.gotoEnvironment(\'test\'); return false;">' +
+            '<a onClick="window.ndirmFunctions.gotoEnvironment(\'prod\');" href="javascript:void(0);" style="font-size:14px;">prod</a> | ' +
+            '<a onClick="window.ndirmFunctions.gotoEnvironment(\'stage\');" href="javascript:void(0);" style="font-size:14px;">stage</a> | ' +
+            '<input id="ndirm-testenv-port" class="ndirm-input" value="' + lastPort + '" placeholder="Port" type="number" style="width:50px;" required/>&nbsp;&nbsp;' +
+            '<a href="javascript:void(0);" onClick="window.ndirmFunctions.gotoEnvironment(\'test\'); return false;" class="ndirm-link">nd-intern</a>' +
+            '    </form>' +
+            '    </div>' +
+            '  </div>';
+
+    /*
      * sourcepoint
      */
     // method to set sourcepoint environment to stage or public
@@ -141,10 +174,11 @@
     editorialInfoDiv.className = "article-icd";
     editorialInfoDiv.innerHTML = '<div class="ndirm-infobox-collapsed"><div id="ndirm-header" class="ndirm-acc-head ndirm-infotitle ndirm-icons-down"><span class="ndirm-link">' + pageType +
         '</span> (<span class="ndirm-selectall">' + pageId + '</span>)</div>' +
-        '<div class="ndirm-acc-panel"><form onsubmit="window.ndirmFunctions.gotoArticle(); return false;">' +
-        '<input id="ndirm-goto-id" class="ndirm-input" placeholder="Enter article id" type="number" style="width:100px;" required/>&nbsp;&nbsp;' +
-        '<a href="javascript:void(0);" onClick="form.submit();" class="ndirm-link">Go to article</a></form>' +
+        '<div class="ndirm-acc-panel"><form id="ndirm-articleForm" onsubmit="window.ndirmFunctions.gotoArticle(); return false;">' +
+        '<input id="ndirm-goto-id" class="ndirm-input" placeholder="Enter article id" type="number" style="width:100px; margin-left:8px;" required/>&nbsp;&nbsp;' +
+        '<a href="javascript:void(0);" onClick="window.ndirmFunctions.gotoArticle();" class="ndirm-link">Go to article</a></form>' +
         metaInfo +
+        codeEnvironmentSelector +
         codeSourcePoint +
         '<md-divider></md-divider>' +
         '<div class="ndirm-image-box">' +
@@ -167,7 +201,7 @@
             '.ndirm-infotitle { margin-top:8px; margin-left:0px; margin-bottom:8px; }' +
             '.ndirm-infohead { margin-top:8px; margin-left:0px; margin-bottom:8px; }' +
             '.ndirm-infocontent { margin-top:0px; margin-left:8px; margin-bottom:8px; }' +
-            '.ndirm-input { width: 100px; margin-bottom:8px; margin-left:8px; font-size:14px; }' +
+            '.ndirm-input { margin-bottom:8px; font-size:14px; }' +
             '.ndirm-acc-panel { display: none; }' +
             '.ndirm-acc-panel-open { display: block; }' +
             '.ndirm-icons-down::after { content:\'keyboard_arrow_down\'; color:#00bef7; float: right; font-family: "Material Icons"; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; word-wrap: normal; direction: ltr; }' +
@@ -177,7 +211,7 @@
             '.ndirm-image-box {  }' +
             '.ndirm-image { width:180px; border-radius:50%; display: block; margin-left: auto; margin-right: auto; }' +
             '.ndirm-footer { font-size: 8px; }' +
-            '.ndirm-link { font-weight:500; color:#00bef7; font-size: 14px; cursor: pointer; }' +
+            '.ndirm-link { /*font-weight:500;*/ color:#00bef7; font-size: 14px; cursor: pointer; }' +
             '.ndirm-acc-head { cursor: pointer; }' +
             'input.ndirm-input[type=number]::-webkit-inner-spin-button, \n' +
             'input.ndirm-input[type=number]::-webkit-outer-spin-button {\n -webkit-appearance: none; }' +
@@ -205,4 +239,31 @@
             panel.classList.toggle("ndirm-acc-panel-open");
         };
     }
+
+    /*
+    * Utils
+    */
+    function setCookie(cname, cvalue, exdays) {
+        var d = new Date();
+        d.setTime(d.getTime() + (exdays*24*60*60*1000));
+        var expires = "expires="+ d.toUTCString();
+        document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+    }
+
+    function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) === 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+        return "";
+    }
+
 })();
