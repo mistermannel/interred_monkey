@@ -8,14 +8,14 @@
 // @include /^https?://(.*\.)?netdoktor\.dev/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.14
+// @version 2.15
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.14";
+    var ndirmVersion = "2.15";
 
     /*
      * article navigation
@@ -29,8 +29,8 @@
      * env navigation
      */
     ndirmFunctions.gotoEnvironment = function (envName) {
-        var envDomain = 'http://www.netdoktor.de';
-        if(envName == 'stage') envDomain = 'http://stage.netdoktor.de';
+        var envDomain = 'https://www.netdoktor.de';
+        if(envName == 'stage') envDomain = 'https://stage.netdoktor.de';
         else if(envName == 'test') {
             var domainPort = document.getElementById("ndirm-testenv-port").value;
             if(/^[0-9]+$/.exec(domainPort) !== null) {
@@ -152,7 +152,7 @@
     // method to set sourcepoint environment to stage or public
     ndirmFunctions.setSourcepointEnv = function (envName) {
         if ((envName === 'stage') || (envName === 'public')) {
-            document.getElementById("sourcepointEnvIFrame").src = 'http://ressource1.netdoktor.de/mms/qa_set_env?env=' + envName;
+            document.getElementById("sourcepointEnvIFrame").src = 'https://ressource1.netdoktor.de/mms/qa_set_env?env=' + envName;
         }
     };
     // controls to set sourcepoint env
