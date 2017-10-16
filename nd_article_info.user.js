@@ -8,14 +8,14 @@
 // @include /^https?://(.*\.)?netdoktor\.dev/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.15
+// @version 2.16
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.15";
+    var ndirmVersion = "2.16";
 
     /*
      * article navigation
