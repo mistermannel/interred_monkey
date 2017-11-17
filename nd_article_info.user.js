@@ -6,16 +6,17 @@
 // @include /^https?://stage\.netdoktor\.de/
 // @include /^https?://cms\.nd\-intern:\d+/
 // @include /^https?://(.*\.)?netdoktor\.dev/
+// @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.16
+// @version 2.17
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.16";
+    var ndirmVersion = "2.17";
 
     /*
      * article navigation
@@ -65,11 +66,6 @@
      */
     var metaInfo = '';
     if (dataLayer[0].page.pageType === 'interred') {
-        var csId = 'n/a';
-        try {
-            csId = dataLayer[0].page.content.csId === undefined ? 'not set' : dataLayer[0].page.content.csId;
-        } catch (error) {
-        }
         var articleTopic = 'n/a';
         try {
             var topics = [];
@@ -100,7 +96,6 @@
             '    <md-divider></md-divider><div class="ndirm-acc-head ndirm-infohead ndirm-link ndirm-icons-down">Meta Info</div>' +
             '    <div class="ndirm-acc-panel-open ndirm-infocontent">' +
             '    <strong>master-id: </strong><span class="ndirm-selectall">' + pageId + '</span><br />' +
-            '    <strong>cs-id: </strong><span class="ndirm-selectall">' + csId + '</span><br />' +
             '    <strong>main topic: </strong>' + articleTopic + '<br />' +
             '    <strong>source: </strong>interred<br />' +
             '    <strong>interred-type: </strong>' + interredType + '<br />' +
@@ -108,11 +103,6 @@
             '    </div>' +
             '  </div>';
     } else {
-        var pageCsId = 'n/a';
-        try {
-            pageCsId = dataLayer[0].page.content.csId;
-        } catch (error) {
-        }
         var pageDate = 'n/a';
         try {
             pageDate = dataLayer[0].page.publishDate;
@@ -122,12 +112,46 @@
             '  <div>' +
             '    <md-divider></md-divider><div class="ndirm-acc-head ndirm-infohead ndirm-link ndirm-icons-down">Meta Info</div>' +
             '    <div class="ndirm-acc-panel-open ndirm-infocontent">' +
-            '    <strong>cs-id: </strong><span class="ndirm-selectall">' + pageCsId + '</span><br />' +
             '    <strong>created: </strong>' + pageDate + '<br />' +
             '    </div>' +
             '  </div>';
     }
 
+    /*
+     * sales info
+     */
+    var csId = 'n/a';
+    try {
+        csId = dataLayer[0].page.content.csId === undefined ? 'not set' : dataLayer[0].page.content.csId;
+    } catch (error) {
+    }
+    var handle = 'n/a'
+    var level2 = 'n/a'
+    var level3 = 'n/a'
+    var level4 = 'n/a'
+    var keywords = 'n/a'
+    try {
+        handle = ndConfig.iqdigital.$handle === undefined ? 'not set' : ndConfig.iqdigital.$handle;
+        level2 = ndConfig.iqdigital.level2 === undefined ? 'not set' : ndConfig.iqdigital.level2;
+        level3 = ndConfig.iqdigital.level3 === undefined ? 'not set' : ndConfig.iqdigital.level3;
+        level4 = ndConfig.iqdigital.level4 === undefined ? 'not set' : ndConfig.iqdigital.level4;
+        keywords = ndConfig.iqdigital.keywords === undefined ? 'not set' : ndConfig.iqdigital.keywords;
+    } catch (error) {
+    }
+    // infos
+    var salesInfo =
+        '  <div>' +
+        '    <md-divider></md-divider><div class="ndirm-acc-head ndirm-infohead ndirm-link ndirm-icons-down">IQ Info</div>' +
+        '    <div class="ndirm-acc-panel-open ndirm-infocontent">' +
+        '    <strong>cs-id: </strong><span class="ndirm-selectall">' + csId + '</span><br />' +
+        '    <strong>$handle: </strong><span class="ndirm-selectall">' + handle + '</span><br />' +
+        '    <strong>level2: </strong><span class="ndirm-selectall">' + level2 + '</span><br />' +
+        '    <strong>level3: </strong><span class="ndirm-selectall">' + level3 + '</span><br />' +
+        '    <strong>level4: </strong><span class="ndirm-selectall">' + level4 + '</span><br />' +
+        '    <strong>keywords: </strong><span class="ndirm-selectall">' + keywords + '</span><br />' +
+        '    </div>' +
+        '  </div>';
+    
     /*
      * env switch
      */
@@ -178,6 +202,7 @@
         '<input id="ndirm-goto-id" class="ndirm-input" placeholder="Enter article id" type="number" style="width:100px; margin-left:8px;" required/>&nbsp;&nbsp;' +
         '<a href="javascript:void(0);" onClick="window.ndirmFunctions.gotoArticle();" class="ndirm-link">Go to article</a></form>' +
         metaInfo +
+        salesInfo +
         codeEnvironmentSelector +
         codeSourcePoint +
         '<md-divider></md-divider>' +
