@@ -9,7 +9,7 @@
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_layover.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_layover.user.js
-// @version 1.0
+// @version 1.1
 // @grant none
 // ==/UserScript==
 
@@ -20,8 +20,8 @@
       var titleDiv = document.createElement('div');
       titleDiv.innerHTML = mySections[i].className;
       titleDiv.style.position = "absolute";
-      mySections[i].style.backgroundColor = "#999999";
-      mySections[i].style.color = "#ffffff";
+      titleDiv.style.backgroundColor = "#999999";
+      titleDiv.style.color = "#ffffff";
       mySections[i].insertBefore(titleDiv, mySections[i].firstChild);
     }
     var mySections = document.querySelectorAll("div.section > div > div.left");
