@@ -6,10 +6,11 @@
 // @include /^https?://stage\.netdoktor\.de/
 // @include /^https?://cms\.nd\-intern:\d+/
 // @include /^https?://(.*\.)?netdoktor\.dev/
+// @include /^https?://(.*\.)?netdoktor\.localhost/
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.17
+// @version 2.18
 // @grant none
 // ==/UserScript==
 
