@@ -10,7 +10,7 @@
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_layover.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_layover.user.js
-// @version 1.2.2
+// @version 1.3
 // @grant none
 // ==/UserScript==
 
@@ -18,12 +18,15 @@
     'use strict';
     let mySections = document.querySelectorAll("div.section");
     for (let i = 0; i < mySections.length; i++) {
+        var articleGridDiv = mySections[i].firstChild;
+        articleGridDiv.style.position = "relative";
         let titleDiv = document.createElement('div');
         titleDiv.innerHTML = getNarmalizedNameFromClass(mySections[i].className);
         titleDiv.style.position = "absolute";
+        titleDiv.style.top = "0";
         titleDiv.style.backgroundColor = "#999999";
         titleDiv.style.color = "#ffffff";
-        mySections[i].insertBefore(titleDiv, mySections[i].firstChild);
+        articleGridDiv.insertBefore(titleDiv, articleGridDiv.firstChild);
     }
     mySections = document.querySelectorAll("div.section > div > div.left");
     for (let i = 0; i < mySections.length; i++) {
