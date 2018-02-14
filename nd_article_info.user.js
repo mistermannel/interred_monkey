@@ -10,14 +10,14 @@
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.18
+// @version 2.19
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.17";
+    var ndirmVersion = "2.19";
 
     /*
      * article navigation
@@ -41,6 +41,13 @@
             }
         }
         window.location.href = envDomain + window.location.pathname;
+    };
+
+    /*
+     * show iq test ads
+     */
+    ndirmFunctions.showIQTestAds = function () {
+        window.location.href = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?iqadtest=iq_tests_nd,pm_medrec,pm_halfpage_ad,pm_sky,pm_billboard,pm_4_1,pm_2_1_mob,pm_halfpage_ad_mob';
     };
 
     /*
@@ -126,11 +133,11 @@
         csId = dataLayer[0].page.content.csId === undefined ? 'not set' : dataLayer[0].page.content.csId;
     } catch (error) {
     }
-    var handle = 'n/a'
-    var level2 = 'n/a'
-    var level3 = 'n/a'
-    var level4 = 'n/a'
-    var keywords = 'n/a'
+    var handle = 'n/a';
+    var level2 = 'n/a';
+    var level3 = 'n/a';
+    var level4 = 'n/a';
+    var keywords = 'n/a';
     try {
         handle = ndConfig.iqdigital.$handle === undefined ? 'not set' : ndConfig.iqdigital.$handle;
         level2 = ndConfig.iqdigital.level2 === undefined ? 'not set' : ndConfig.iqdigital.level2;
@@ -150,6 +157,7 @@
         '    <strong>level3: </strong><span class="ndirm-selectall">' + level3 + '</span><br />' +
         '    <strong>level4: </strong><span class="ndirm-selectall">' + level4 + '</span><br />' +
         '    <strong>keywords: </strong><span class="ndirm-selectall">' + keywords + '</span><br />' +
+        '    <a onClick="window.ndirmFunctions.showIQTestAds();" href="javascript:void(0);" style="font-size:14px;">show test ads</a><br />' +
         '    </div>' +
         '  </div>';
     
