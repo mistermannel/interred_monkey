@@ -10,14 +10,14 @@
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.20
+// @version 2.21
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.20";
+    var ndirmVersion = "2.21";
 
     /*
      * article navigation
@@ -96,10 +96,16 @@
         } catch (error) {
         }
         var articleType = 'no type';
+        var articleTypeLabel = 'article-type';
         try {
-            articleType = dataLayer[0].page.articleType.type;
-            if (dataLayer[0].page.articleType.subType !== undefined) {
-                articleType = articleType + '&nbsp;| ' + dataLayer[0].page.articleType.subType;
+            if(interredType == 'nd_module_wrapper') {
+                articleType = dataLayer[0].page.module_type;
+                articleTypeLabel = 'module-type';
+            } else {
+                articleType = dataLayer[0].page.articleType.type;
+                if (dataLayer[0].page.articleType.subType !== undefined) {
+                    articleType = articleType + '&nbsp;| ' + dataLayer[0].page.articleType.subType;
+                }
             }
         } catch (error) {
         }
@@ -112,7 +118,7 @@
             '    <strong>main topic: </strong>' + articleTopic + '<br />' +
             '    <strong>source: </strong>interred<br />' +
             '    <strong>interred-type: </strong>' + interredType + '<br />' +
-            '    <strong>article-type: </strong>' + articleType + '<br />' +
+            '    <strong>' + articleTypeLabel + ': </strong>' + articleType + '<br />' +
             '    </div>' +
             '  </div>';
     } else {
