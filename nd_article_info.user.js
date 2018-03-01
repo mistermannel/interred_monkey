@@ -10,14 +10,14 @@
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.21
+// @version 2.22
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.21";
+    var ndirmVersion = "2.22";
 
     /*
      * article navigation
@@ -46,14 +46,11 @@
     /*
      * show iq test ads
      */
-    ndirmFunctions.showIQTestAds = function (env) {
-        console.log(env);
-        if(env == 'mobile') {
-            window.location.href = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?iqadtest=iq_tests_nd,pm_2_1_mob,pm_3_1_mob,pm_4_1_mob,pm_6_1_mob,pm_halfpage_ad_mob,pm_high_impact_ad_mob,pm_premium_rectangle_mob';
-            return;
-        }
-        window.location.href = window.location.protocol + '//' + window.location.hostname + window.location.pathname + '?iqadtest=iq_tests_nd,pm_medrec,pm_halfpage_ad,pm_sky,pm_billboard,pm_billboard_ros,pm_4_1,pm_10_1';
-    };
+    function getAdTestUrl(env) {
+        var queryString = env == 'mobile' ? '?iqadtest=iq_tests_nd,pm_2_1_mob,pm_3_1_mob,pm_4_1_mob,pm_6_1_mob,pm_halfpage_ad_mob,pm_high_impact_ad_mob,pm_premium_rectangle_mob' : '?iqadtest=iq_tests_nd,pm_medrec,pm_halfpage_ad,pm_sky,pm_billboard,pm_billboard_ros,pm_4_1,pm_10_1';
+
+        return location.href.replace(location.search, queryString);
+    }
 
     /*
      * page type
@@ -168,10 +165,10 @@
         '    <strong>level3: </strong><span class="ndirm-selectall">' + level3 + '</span><br />' +
         '    <strong>level4: </strong><span class="ndirm-selectall">' + level4 + '</span><br />' +
         '    <strong>keywords: </strong><span class="ndirm-selectall">' + keywords + '</span><br />' +
-        '    show test ads <a onClick="window.ndirmFunctions.showIQTestAds();" href="javascript:void(0);" style="font-size:14px;">desktop</a> | <a onClick="window.ndirmFunctions.showIQTestAds(\'mobile\');" href="javascript:void(0);" style="font-size:14px;">mobile</a><br />' +
+        '    show test ads <a href="' + getAdTestUrl('desktop') + '" style="font-size:14px;">desktop</a> | <a href="' + getAdTestUrl('mobile') + '" style="font-size:14px;">mobile</a><br />' +
         '    </div>' +
         '  </div>';
-    
+
     /*
      * env switch
      */
