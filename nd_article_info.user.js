@@ -10,14 +10,14 @@
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.23
+// @version 2.24
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.23";
+    var ndirmVersion = "2.24";
 
     /*
      * article navigation
@@ -49,7 +49,7 @@
     function getAdTestUrl(env) {
         var queryString = env == 'mobile' ? '?iqadtest=iq_tests_nd,pm_2_1_mob,pm_3_1_mob,pm_4_1_mob,pm_6_1_mob,pm_halfpage_ad_mob,pm_high_impact_ad_mob,pm_premium_rectangle_mob' : '?iqadtest=iq_tests_nd,pm_medrec,pm_halfpage_ad,pm_sky,pm_billboard,pm_billboard_ros,pm_4_1,pm_10_1';
 
-        return location.href.replace(location.search, queryString);
+        return location.search === "" ? location.href + queryString : location.href.replace(location.search, queryString);
     }
 
     /*
