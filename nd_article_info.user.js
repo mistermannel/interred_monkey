@@ -10,14 +10,14 @@
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.22
+// @version 2.23
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.22";
+    var ndirmVersion = "2.23";
 
     /*
      * article navigation
@@ -246,8 +246,8 @@
             '.ndirm-input { margin-bottom:8px; font-size:14px; }' +
             '.ndirm-acc-panel { display: none; }' +
             '.ndirm-acc-panel-open { display: block; }' +
-            '.ndirm-icons-down::after { content:\'keyboard_arrow_down\'; color:#00bef7; float: right; font-family: "Material Icons"; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; word-wrap: normal; direction: ltr; }' +
-            '.ndirm-icons-up::after { content:\'keyboard_arrow_up\'; color:#00bef7; float: right; font-family: "Material Icons"; font-weight: normal; font-style: normal; font-size: 24px; line-height: 1; letter-spacing: normal; text-transform: none; display: inline-block; white-space: nowrap; word-wrap: normal; direction: ltr; }' +
+            '.ndirm-icons-down::after { content:url(/svg/material-icons/00bef7/keyboard_arrow_down.svg); float: right; }' +
+            '.ndirm-icons-up::after { content:url(/svg/material-icons/00bef7/keyboard_arrow_up.svg); float: right;}' +
             '.ndirm-signature { font-size:16px; text-align: center; margin: 32px 0px 16px 0px; }' +
             '.ndirm-name { font-size:16px; text-align: center; font-weight: 600; margin: 16px 0px 0px 0px; }' +
             '.ndirm-image-box {  }' +
