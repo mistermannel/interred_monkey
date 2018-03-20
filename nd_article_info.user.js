@@ -10,14 +10,14 @@
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.24
+// @version 2.25
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.24";
+    var ndirmVersion = "2.25";
 
     /*
      * article navigation
@@ -47,7 +47,18 @@
      * show iq test ads
      */
     function getAdTestUrl(env) {
-        var queryString = env == 'mobile' ? '?iqadtest=iq_tests_nd,pm_2_1_mob,pm_3_1_mob,pm_4_1_mob,pm_6_1_mob,pm_halfpage_ad_mob,pm_high_impact_ad_mob,pm_premium_rectangle_mob' : '?iqadtest=iq_tests_nd,pm_medrec,pm_halfpage_ad,pm_sky,pm_billboard,pm_billboard_ros,pm_4_1,pm_10_1';
+        var queryString = '';
+        switch (env) {
+            case 'mobile':
+                queryString = '?iqadtest=iq_tests_nd,pm_2_1_mob,pm_3_1_mob,pm_4_1_mob,pm_6_1_mob,pm_halfpage_ad_mob,pm_high_impact_ad_mob,pm_premium_rectangle_mob';
+                break;
+            case 'desktop':
+                queryString = '?iqadtest=iq_tests_nd,pm_medrec,pm_halfpage_ad,pm_sky,pm_billboard,pm_billboard_ros,pm_4_1,pm_10_1';
+                break;
+            case 'all':
+                queryString = '?iqadtest=iqviewadplace';
+                break;
+        }
 
         return location.search === "" ? location.href + queryString : location.href.replace(location.search, queryString);
     }
@@ -165,7 +176,7 @@
         '    <strong>level3: </strong><span class="ndirm-selectall">' + level3 + '</span><br />' +
         '    <strong>level4: </strong><span class="ndirm-selectall">' + level4 + '</span><br />' +
         '    <strong>keywords: </strong><span class="ndirm-selectall">' + keywords + '</span><br />' +
-        '    show test ads <a href="' + getAdTestUrl('desktop') + '" style="font-size:14px;">desktop</a> | <a href="' + getAdTestUrl('mobile') + '" style="font-size:14px;">mobile</a><br />' +
+        '    show test ads <a href="' + getAdTestUrl('desktop') + '" style="font-size:14px;">desktop</a> | <a href="' + getAdTestUrl('mobile') + '" style="font-size:14px;">mobile</a> | <a href="' + getAdTestUrl('all') + '" style="font-size:14px;">all</a><br />' +
         '    </div>' +
         '  </div>';
 
