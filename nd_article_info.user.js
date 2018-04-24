@@ -10,14 +10,14 @@
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.25
+// @version 2.26
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.25";
+    var ndirmVersion = "2.26";
 
     /*
      * article navigation
@@ -66,18 +66,21 @@
     /*
      * page type
      */
+    var dataLayerPage = {};
+    var dataLayerWithPage = dataLayer.filter(layer => layer.page !== undefined)[0];
+    if(dataLayerWithPage !== undefined) dataLayerPage = dataLayerWithPage.page;
     var pageType = 'n/a';
     var pageId   = 'n/a';
-    if (dataLayer[0].page.pageType === 'interred') {
+    if (dataLayerPage.pageType === 'interred') {
         pageType = 'InterRed';
         try {
-            pageId = dataLayer[0].page.articleID;
+            pageId = dataLayerPage.articleID;
         } catch (error) {
         }
     } else {
         pageType = 'CMS';
         try {
-            pageId = dataLayer[0].page.cmsPageId;
+            pageId = dataLayerPage.cmsPageId;
         } catch (error) {
         }
     }
@@ -86,12 +89,12 @@
      * meta info
      */
     var metaInfo = '';
-    if (dataLayer[0].page.pageType === 'interred') {
+    if (dataLayerPage.pageType === 'interred') {
         var articleTopic = 'n/a';
         try {
             var topics = [];
-            for (var key in dataLayer[0].page.topic.main) {
-                topics.push(dataLayer[0].page.topic.main[key]);
+            for (var key in dataLayerPage.topic.main) {
+                topics.push(dataLayerPage.topic.main[key]);
             }
             if (topics.length > 0) {
                 articleTopic = '<span class="ndirm-selectall">' + topics.join('</span>&nbsp;/ <span class="ndirm-selectall">') + '</span>';
@@ -100,19 +103,19 @@
         }
         var interredType = 'no type';
         try {
-            interredType = dataLayer[0].page.articleType.interredType;
+            interredType = dataLayerPage.articleType.interredType;
         } catch (error) {
         }
         var articleType = 'no type';
         var articleTypeLabel = 'article-type';
         try {
             if(interredType == 'nd_module_wrapper') {
-                articleType = dataLayer[0].page.module_type;
+                articleType = dataLayerPage.module_type;
                 articleTypeLabel = 'module-type';
             } else {
-                articleType = dataLayer[0].page.articleType.type;
-                if (dataLayer[0].page.articleType.subType !== undefined) {
-                    articleType = articleType + '&nbsp;| ' + dataLayer[0].page.articleType.subType;
+                articleType = dataLayerPage.articleType.type;
+                if (dataLayerPage.articleType.subType !== undefined) {
+                    articleType = articleType + '&nbsp;| ' + dataLayerPage.articleType.subType;
                 }
             }
         } catch (error) {
@@ -132,7 +135,7 @@
     } else {
         var pageDate = 'n/a';
         try {
-            pageDate = dataLayer[0].page.publishDate;
+            pageDate = dataLayerPage.publishDate;
         } catch (error) {
         }
         metaInfo =
@@ -149,7 +152,7 @@
      */
     var csId = 'n/a';
     try {
-        csId = dataLayer[0].page.content.csId === undefined ? 'not set' : dataLayer[0].page.content.csId;
+        csId = dataLayerPage.content.csId === undefined ? 'not set' : dataLayerPage.content.csId;
     } catch (error) {
     }
     var handle = 'n/a';
