@@ -5,19 +5,20 @@
 // @include /^https?://www\.netdoktor\.de/
 // @include /^https?://stage\.netdoktor\.de/
 // @include /^https?://cms\.nd\-intern:\d+/
+// @include /^https?://.+\.testing.muc/
 // @include /^https?://(.*\.)?netdoktor\.dev/
 // @include /^https?://(.*\.)?netdoktor\.localhost/
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.27
+// @version 2.28
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.27";
+    var ndirmVersion = "2.28";
 
     /*
      * article navigation
