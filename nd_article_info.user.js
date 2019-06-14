@@ -11,14 +11,14 @@
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.28
+// @version 2.29
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.28";
+    var ndirmVersion = "2.29";
 
     /*
      * article navigation
@@ -121,6 +121,8 @@
             }
         } catch (error) {
         }
+        //wordlink counter
+        var wlmCount = document.getElementsByClassName("wlm-link").length;
         // infos
         metaInfo =
             '  <div>' +
@@ -131,6 +133,7 @@
             '    <strong>source: </strong>interred<br />' +
             '    <strong>interred-type: </strong>' + interredType + '<br />' +
             '    <strong>' + articleTypeLabel + ': </strong>' + articleType + '<br />' +
+            '    <strong>wordlinks: </strong>' + wlmCount + '<br />' +
             '    </div>' +
             '  </div>';
     } else {
