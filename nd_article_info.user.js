@@ -5,19 +5,20 @@
 // @include /^https?://www\.netdoktor\.de/
 // @include /^https?://stage\.netdoktor\.de/
 // @include /^https?://cms\.nd\-intern:\d+/
+// @include /^https?://.+\.testing.muc/
 // @include /^https?://(.*\.)?netdoktor\.dev/
 // @include /^https?://(.*\.)?netdoktor\.localhost/
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.26
+// @version 2.29
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.26";
+    var ndirmVersion = "2.29";
 
     /*
      * article navigation
@@ -120,6 +121,8 @@
             }
         } catch (error) {
         }
+        //wordlink counter
+        var wlmCount = document.getElementsByClassName("wlm-link").length;
         // infos
         metaInfo =
             '  <div>' +
@@ -130,6 +133,7 @@
             '    <strong>source: </strong>interred<br />' +
             '    <strong>interred-type: </strong>' + interredType + '<br />' +
             '    <strong>' + articleTypeLabel + ': </strong>' + articleType + '<br />' +
+            '    <strong>wordlinks: </strong>' + wlmCount + '<br />' +
             '    </div>' +
             '  </div>';
     } else {
@@ -252,8 +256,8 @@
         // style
         var editorialInfoStyle       = document.createElement('style');
         editorialInfoStyle.innerHTML = '.ndirm-selectall { -webkit-user-select: all; -moz-user-select: all; -ms-user-select: all; user-select: all; }' +
-            '.ndirm-infobox { z-index:1000000; margin:10px; padding:8px 16px 8px 16px; background-color: #ffffff; background-color: var(--white); box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5); position: fixed; top: 0;px left: 0; width: 300px; background: #fff; opacity: 0.9; font-family:Roboto, sans-serif; font-size:14px; line-height:23.8px; text-size-adjust:100%; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:rgba(0, 0, 0, 0); }' +
-            '.ndirm-infobox-collapsed { z-index:1000000; margin:10px 60px 10px 60px; padding:8px 16px 8px 16px; background-color: #ffffff; background-color: var(--white); box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5); position: fixed; top: 0;px left: 0; width: 200px; background: #fff; opacity: 0.9; font-family:Roboto, sans-serif; font-size:14px; line-height:23.8px; text-size-adjust:100%; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:rgba(0, 0, 0, 0); }' +
+            '.ndirm-infobox { z-index:1000000; margin:60px 60px 10px 60px; padding:8px 16px 8px 16px; background-color: #ffffff; background-color: var(--white); box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5); position: fixed; top: 0;px left: 0; width: 300px; background: #fff; opacity: 0.9; font-family:Roboto, sans-serif; font-size:14px; line-height:23.8px; text-size-adjust:100%; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:rgba(0, 0, 0, 0); }' +
+            '.ndirm-infobox-collapsed { z-index:1000000; margin:60px 60px 10px 60px; padding:8px 16px 8px 16px; background-color: #ffffff; background-color: var(--white); box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5); position: fixed; top: 0;px left: 0; width: 200px; background: #fff; opacity: 0.9; font-family:Roboto, sans-serif; font-size:14px; line-height:23.8px; text-size-adjust:100%; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:rgba(0, 0, 0, 0); }' +
             '.ndirm-infotitle { margin-top:8px; margin-left:0px; margin-bottom:8px; }' +
             '.ndirm-infohead { margin-top:8px; margin-left:0px; margin-bottom:8px; }' +
             '.ndirm-infocontent { margin-top:0px; margin-left:8px; margin-bottom:8px; }' +
