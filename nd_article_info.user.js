@@ -11,20 +11,20 @@
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version 2.29
+// @version 2.30
 // @grant none
 // ==/UserScript==
 
 (function () {
     'use strict';
     var ndirmFunctions = window.ndirmFunctions = {};
-    var ndirmVersion = "2.29";
+    var ndirmVersion = "2.30";
 
     /*
      * article navigation
      */
     ndirmFunctions.gotoArticle = function () {
-        var articleId        = document.getElementById("ndirm-goto-id").value;
+        var articleId = document.getElementById("ndirm-goto-id").value;
         window.location.href = window.location.origin + "/content/" + articleId;
     };
 
@@ -71,7 +71,7 @@
     var dataLayerWithPage = dataLayer.filter(layer => layer.page !== undefined)[0];
     if(dataLayerWithPage !== undefined) dataLayerPage = dataLayerWithPage.page;
     var pageType = 'n/a';
-    var pageId   = 'n/a';
+    var pageId = 'n/a';
     if (dataLayerPage.pageType === 'interred') {
         pageType = 'InterRed';
         try {
@@ -121,19 +121,47 @@
             }
         } catch (error) {
         }
+         //updateDate
+        let updateDate = 'n/a';
+        try {
+            updateDate = dataLayerPage.interredTimestamp;
+        } catch (error) {
+        }
         //wordlink counter
-        var wlmCount = document.getElementsByClassName("wlm-link").length;
+        let wordlinkCount = document.getElementsByClassName("wlm-link").length;
+        //image gallery counter
+        let imageGalleryCount = document.getElementsByClassName("widget-image-gallery").length;
+        //video counter
+        let videoCount = document.getElementsByClassName("video with-description").length;
+        //sc teaser counter
+        let scTeaserCount = document.getElementsByClassName("ndpm-contentteaser-sc-container").length;
+        //lvc teaser counter
+        let lvcTeaserCount = document.getElementsByClassName("ndpm-contentteaser-lwc-container").length;
+        //hpf teaser counter
+        let hpfTeaserCount = document.getElementsByClassName("ndpm-contentteaser-hpf-container").length;
+        //hpf teaser counter
+        let ndtoolsTeaserCount = document.getElementsByClassName("ndpm-ndtools-wrapper").length;
+        //qt/lvc counter
+        let qtAndLvcCount = (document.getElementById("mini-sc") !== null) ? "1" : "0";
         // infos
         metaInfo =
             '  <div>' +
             '    <md-divider></md-divider><div class="ndirm-acc-head ndirm-infohead ndirm-link ndirm-icons-down">Meta Info</div>' +
             '    <div class="ndirm-acc-panel-open ndirm-infocontent">' +
+            '    <strong>last update: </strong>' + updateDate + '<br />' +
             '    <strong>master-id: </strong><span class="ndirm-selectall">' + pageId + '</span><br />' +
             '    <strong>main topic: </strong>' + articleTopic + '<br />' +
             '    <strong>source: </strong>interred<br />' +
             '    <strong>interred-type: </strong>' + interredType + '<br />' +
             '    <strong>' + articleTypeLabel + ': </strong>' + articleType + '<br />' +
-            '    <strong>wordlinks: </strong>' + wlmCount + '<br />' +
+            '    <strong>wordlinks: </strong>' + wordlinkCount + '<br />' +
+            '    <strong>image gallery: </strong>' + imageGalleryCount + '<br />' +
+            '    <strong>video: </strong>' + videoCount + '<br />' +
+            '    <strong>qt & lvc: </strong>' + qtAndLvcCount + '<br />' +
+            '    <strong>sc teaser: </strong>' + scTeaserCount + '<br />' +
+            '    <strong>lvc teaser: </strong>' + lvcTeaserCount + '<br />' +
+            '    <strong>hpf teaser: </strong>' + hpfTeaserCount + '<br />' +
+            '    <strong>nd tools teaser: </strong>' + ndtoolsTeaserCount + '<br />' +
             '    </div>' +
             '  </div>';
     } else {
@@ -215,7 +243,7 @@
         }
     };
     // controls to set sourcepoint env
-    var codeSourcePoint              =
+    var codeSourcePoint =
             '  <div>' +
             '    <md-divider></md-divider><div class="ndirm-acc-head ndirm-infohead ndirm-link ndirm-icons-down">SourcePoint</div>' +
             '    <div class="ndirm-acc-panel-open ndirm-infocontent">' +
@@ -229,7 +257,7 @@
     /*
      * main object
      */
-    var editorialInfoDiv       = document.createElement('div');
+    var editorialInfoDiv = document.createElement('div');
     editorialInfoDiv.className = "article-icd";
     editorialInfoDiv.innerHTML = '<div class="ndirm-infobox-collapsed"><div id="ndirm-header" class="ndirm-acc-head ndirm-infotitle ndirm-icons-down"><span class="ndirm-link">' + pageType +
         '</span> (<span class="ndirm-selectall">' + pageId + '</span>)</div>' +
@@ -243,7 +271,7 @@
         '<md-divider></md-divider>' +
         '<div class="ndirm-image-box">' +
         '<div class="ndirm-signature">Yours sincerely</div>' +
-        '<img class="ndirm-image" src="https://cdn.netdoktor.de/images/internal/ir-monkey.jpg" width="180px" />' +
+        '<img class="ndirm-image" src="https://cdn.netdoktor.de/images/internal/ir-monkey.jpg" width="100px" />' +
         '<div class="ndirm-name">Interred Monkey</div>' +
         '</div>' +
         '<div class="ndirm-footer">v ' + ndirmVersion + '</div>' +
@@ -254,7 +282,7 @@
         var pageBody = pageBodyTags[0];
         pageBody.insertBefore(editorialInfoDiv, pageBody.firstChild);
         // style
-        var editorialInfoStyle       = document.createElement('style');
+        var editorialInfoStyle = document.createElement('style');
         editorialInfoStyle.innerHTML = '.ndirm-selectall { -webkit-user-select: all; -moz-user-select: all; -ms-user-select: all; user-select: all; }' +
             '.ndirm-infobox { z-index:1000000; margin:60px 60px 10px 60px; padding:8px 16px 8px 16px; background-color: #ffffff; background-color: var(--white); box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5); position: fixed; top: 0;px left: 0; width: 300px; background: #fff; opacity: 0.9; font-family:Roboto, sans-serif; font-size:14px; line-height:23.8px; text-size-adjust:100%; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:rgba(0, 0, 0, 0); }' +
             '.ndirm-infobox-collapsed { z-index:1000000; margin:60px 60px 10px 60px; padding:8px 16px 8px 16px; background-color: #ffffff; background-color: var(--white); box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.5); position: fixed; top: 0;px left: 0; width: 200px; background: #fff; opacity: 0.9; font-family:Roboto, sans-serif; font-size:14px; line-height:23.8px; text-size-adjust:100%; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:rgba(0, 0, 0, 0); }' +
@@ -269,7 +297,7 @@
             '.ndirm-signature { font-size:16px; text-align: center; margin: 32px 0px 16px 0px; }' +
             '.ndirm-name { font-size:16px; text-align: center; font-weight: 600; margin: 16px 0px 0px 0px; }' +
             '.ndirm-image-box {  }' +
-            '.ndirm-image { width:180px; border-radius:50%; display: block; margin-left: auto; margin-right: auto; }' +
+            '.ndirm-image { width:100px; border-radius:50%; display: block; margin-left: auto; margin-right: auto; }' +
             '.ndirm-footer { font-size: 8px; }' +
             '.ndirm-link { /*font-weight:500;*/ color:#00bef7; font-size: 14px; cursor: pointer; }' +
             '.ndirm-acc-head { cursor: pointer; }' +
