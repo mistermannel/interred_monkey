@@ -10,7 +10,7 @@
 // @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_layover.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_layover.user.js
-// @version 1.3
+// @version 2.0
 // @grant none
 // ==/UserScript==
 
@@ -66,8 +66,8 @@
         titleDiv.innerHTML = allAds[i].id;
         titleDiv.style.position = "absolute";
         titleDiv.style.top = "16px";
-        titleDiv.style.backgroundColor = "#999999";
-        titleDiv.style.color = "#ffffff";
+        titleDiv.style.backgroundColor = "#eee";
+        titleDiv.style.color = "#000";
         titleDiv.style.fontFamily = "Courier New";
         titleDiv.style.fontSize = "12px";
         allAds[i].insertBefore(titleDiv, allAds[i].firstChild);
