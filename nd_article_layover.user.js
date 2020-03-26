@@ -9,7 +9,7 @@
 // @include /^https?://(.*\.)?netdoktor\.localhost/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_layover.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_layover.user.js
-// @version 2.2
+// @version 2.3
 // @grant none
 // ==/UserScript==
 
@@ -56,6 +56,19 @@
 
     // add layer for ads
     let allAds = document.getElementsByTagName('nd-advertisement');
+
+    let titleDiv = document.createElement('div');
+    titleDiv.innerHTML = allAds.length+" ads on page";
+    titleDiv.style.position = "absolute";
+    titleDiv.style.top = "0px";
+    titleDiv.style.left = "0px";
+    titleDiv.style.zIndex = "1000000";
+    titleDiv.style.backgroundColor = "#eee";
+    titleDiv.style.color = "#000";
+    titleDiv.style.fontFamily = "Courier New";
+    titleDiv.style.fontSize = "12px";
+    document.body.appendChild(titleDiv);
+
     for (let i = 0; i < allAds.length; i++) {
         allAds[i].style.border = "1px solid #00bef799";
         allAds[i].style.minHeight="32px";
@@ -64,7 +77,7 @@
         let titleDiv = document.createElement('div');
         titleDiv.innerHTML = allAds[i].id;
         titleDiv.style.position = "absolute";
-        titleDiv.style.top = "16px";
+        titleDiv.style.top = "-16px";
         titleDiv.style.backgroundColor = "#eee";
         titleDiv.style.color = "#000";
         titleDiv.style.fontFamily = "Courier New";
