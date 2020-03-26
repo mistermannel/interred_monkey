@@ -4,13 +4,12 @@
 // @author Netdoktor.de GmbH
 // @include /^https?://www\.netdoktor\.de/
 // @include /^https?://stage\.netdoktor\.de/
-// @include /^https?://cms\.nd\-intern:\d+/
+// @include /^https?://(.*)-nd\.nerddoktor\.de/
 // @include /^https?://(.*\.)?netdoktor\.dev/
 // @include /^https?://(.*\.)?netdoktor\.localhost/
-// @include /^https?://10.14.6.23:\d+/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_layover.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_layover.user.js
-// @version 2.0
+// @version 2.2
 // @grant none
 // ==/UserScript==
 
