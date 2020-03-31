@@ -9,7 +9,7 @@
 // @include /^https?://(.*\.)?netdoktor\.localhost/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_layover.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_layover.user.js
-// @version 2.3
+// @version 2.4
 // @grant none
 // ==/UserScript==
 
@@ -57,8 +57,8 @@
     // add layer for ads
     let allAds = document.getElementsByTagName('nd-advertisement');
 
-    let titleDiv = document.createElement('div');
-    titleDiv.innerHTML = allAds.length+" ads on page";
+    let titleDiv = document.createElement('a');
+    titleDiv.innerHTML = allAds.length+" ads on page (click for bfa layer)";
     titleDiv.style.position = "absolute";
     titleDiv.style.top = "0px";
     titleDiv.style.left = "0px";
@@ -67,6 +67,12 @@
     titleDiv.style.color = "#000";
     titleDiv.style.fontFamily = "Courier New";
     titleDiv.style.fontSize = "12px";
+    titleDiv.href = "javascript:void(0);";
+    titleDiv.onclick = function () {
+        bfaLayer();
+    };
+
+    titleDiv.onClick = "javascript:if(TFM && TFM.Debug && TFM.Debug.start){ TFM.Debug.start();}else{_aeq.push(['showDebugTool']);}";
     document.body.appendChild(titleDiv);
 
     for (let i = 0; i < allAds.length; i++) {
@@ -85,4 +91,11 @@
         allAds[i].insertBefore(titleDiv, allAds[i].firstChild);
     }
 
+    function bfaLayer() {
+        if(window.TFM && window.TFM.Debug && window.TFM.Debug.start) {
+            window.TFM.Debug.start();
+        } else {
+            _aeq.push(['showDebugTool']);
+        }
+    }
 }());
