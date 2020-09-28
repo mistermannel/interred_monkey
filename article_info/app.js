@@ -1,5 +1,5 @@
 (function (window) {
-    let version = "3.0";
+    let version = "3.1";
     let appTemplate = `<style>
   .vue-monkey {
     display: none;
@@ -183,7 +183,6 @@
                 { label: "page type", value: dataLayer.get("page.pageType") || "not set" },
                 { label: "interred type", value: dataLayer.get("page.articleType.interredType") || "not set" },
                 { label: "article type", value: dataLayer.get("page.articleType.type") || "not set" },
-                { label: "last transfer", value: dataLayer.get("page.content.interredTimestamp") || "not set" },
                 ]});
     }
 
@@ -191,7 +190,7 @@
         posts.push({
             title: "BFA info",
             info: [
-                { label: "last transfer", value: dataLayer.get("page.content.bfa.campaignIsExclusive") || "not set" },
+                { label: "exclusive", value: dataLayer.get("page.content.bfa.campaignIsExclusive") ? "yes" "no" || "not set" },
                 { label: "category", value: dataLayer.get("page.content.bfa.category") || "not set" },
                 { label: "layout", value: dataLayer.get("page.content.bfa.layout") || "not set" },
                 { label: "topics", value: dataLayer.get("page.content.bfa.topics") || "not set" },

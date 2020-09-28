@@ -9,7 +9,7 @@
 // @include     /^https?://(.*\.)?netdoktor\.localhost/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
 // @updateURL   https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_article_info.user.js
-// @version     3.0
+// @version     3.1
 // @grant       none
 // @require     https://vuejs.org/js/vue.min.js
 // @require     https://code.jquery.com/jquery-3.4.1.min.js
