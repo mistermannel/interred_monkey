@@ -1,5 +1,5 @@
 (function (window) {
-    let version = "3.1";
+    let version = "3.2";
     let appTemplate = `<style>
   .vue-monkey {
     display: none;
@@ -50,6 +50,7 @@
     background-color: rgba(255, 255, 255, 0.8);
     color: rgba(0, 0, 0, 0.8);
     margin-left: auto; margin-right: auto;
+    padding-top: 16px;
   }
   .vue-monkey .info-block {
     font-family:Roboto, sans-serif; line-height:18px; font-size: 14px; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
@@ -68,6 +69,25 @@
   .vue-monkey .info-block .info-block-detail .value {
     padding-left: 8px;
   }
+  .vue-monkey .fixed-block {
+    pointer-events:auto;
+    padding: 4px 8px 0 20px;
+  }
+  .vue-monkey .fixed-block .goto-id {
+    pointer-events:auto;
+  }
+  .vue-monkey .fixed-block .form-label {
+    font-size: 12px;
+    font-style: italic;
+    padding-right: 8px;
+  }
+  .vue-monkey .fixed-block .button {
+    height: 20px;
+    min-width: 66px;
+    margin-top: 0;
+    margin-bottom: 0;
+  }
+
 </style>
 <div id="vue-monkey-app" class="vue-monkey" :style="{ display: mountDisplay }">
   <div class="closed-layer" :class="[isClosed ? 'shown' : 'hidden']">
@@ -76,7 +96,13 @@
     <input type="hidden" id="coptToClipboard" :value="copyString">
   </div>
   <div class="open-layer" :class="[!isClosed ? 'shown' : 'hidden']" v-on:click="toggle">
-
+    <div class="fixed-block">
+      <form class="goto-id" @submit="gotoArticle" onsubmit="return false;">
+      <span class="form-label">Go to article id:</span><input id="gotoId" type="text" v-model="articleid" value="" placeholder="Enter article id and press enter"/>
+    </div>
+    <div class="fixed-block">
+      <span class="form-label">Switch environment:</span><button class="button" @click="gotoEnv('stage')">stage</button><button class="button" @click="gotoEnv('prod')">prod</button>
+    </div>
     <info-block
       v-for="post in posts"
       v-bind:post="post"
@@ -97,6 +123,7 @@
             copyString: "",
             posts: [
             ],
+            articleid: null,
         },
         mounted: function () {
             console.log("vue monkey mounted")
@@ -117,6 +144,7 @@
             metaInformation(this.dataLayer, this.posts);
             bfaInformation(this.dataLayer, this.posts);
             onPageformation(this.dataLayer, this.posts);
+            helpInformation(this.posts);
 
             this.posts.push({
             title: "Interred Monkey",
@@ -126,10 +154,23 @@
         },
         created: function () {
             console.log("vue monkey created");
+            window.addEventListener('keydown', (e) => {
+                console.log(e.key);
+                if (e.key == 'Escape') {
+//                    this.showModal = !this.showModal;
+                }
+            });
         },
         methods: {
             toggle: function (event) {
                 console.log("toggled");
+                if((event.srcElement !== undefined) && (event.srcElement.id == "gotoId")) {
+                    return;
+                }
+                if((event.srcElement !== undefined) && (event.srcElement.tagName == "BUTTON")) {
+                    return;
+                }
+                console.log(event);
                 this.isClosed = !this.isClosed;
             },
             copyContentId: function (event) {
@@ -146,6 +187,15 @@
                 }
                 copyToClipboard.setAttribute('type', 'hidden');
                 window.getSelection().removeAllRanges();
+            },
+            gotoArticle: function (event) {
+                console.log(this.articleid);
+                window.location.href = window.location.origin + "/content/" + this.articleid;
+            },
+            gotoEnv: function(envName) {
+                var envDomain = 'https://www.netdoktor.de';
+                if(envName == 'stage') envDomain = 'https://stage.netdoktor.de';
+                window.location.href = envDomain + window.location.pathname;
             }
         }
     });
@@ -190,10 +240,19 @@
         posts.push({
             title: "BFA info",
             info: [
-                { label: "exclusive", value: dataLayer.get("page.content.bfa.campaignIsExclusive") ? "yes" "no" || "not set" },
+                { label: "exclusive", value: dataLayer.get("page.content.bfa.campaignIsExclusive") ? "yes" : "no" },
                 { label: "category", value: dataLayer.get("page.content.bfa.category") || "not set" },
                 { label: "layout", value: dataLayer.get("page.content.bfa.layout") || "not set" },
                 { label: "topics", value: dataLayer.get("page.content.bfa.topics") || "not set" },
+                ]});
+    }
+
+    function helpInformation(posts) {
+        posts.push({
+            title: "Help",
+            info: [
+                { label: "Copy article id", value: "Just click the number underneath the monkey" },
+                { label: "Crown and sunnies? wtf!", value: "Id the monkey is shown with crown and sunnies the page has a cs-id set" },
                 ]});
     }
 
