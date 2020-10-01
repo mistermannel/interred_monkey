@@ -1,9 +1,9 @@
 (function (window) {
-    let version = "3.2";
+    let version = "3.3";
     let appTemplate = `<style>
   .vue-monkey {
     display: none;
-    z-index: 1000001;
+    z-index: 10000001;
     position: fixed; top: 0px; left: 0px;
     width: 100%; height: 100%;
     padding: 10px;
@@ -18,6 +18,7 @@
   }
   .vue-monkey .closed-layer {
     margin-left: auto; margin-right: auto;
+    padding-top: 8px;
   }
   .vue-monkey .closed-layer .image {
     width: 50px;
@@ -54,13 +55,13 @@
   }
   .vue-monkey .info-block {
     font-family:Roboto, sans-serif; line-height:18px; font-size: 14px; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
-    padding: 16px 16px 8px 16px;
+    padding: 8px 16px 8px 16px;
   }
   .vue-monkey .info-block .title {
     font-weight: 600;
   }
   .vue-monkey .info-block .info-block-detail {
-    padding: 8px 4px 0 4px;
+    padding: 4px 4px 0 4px;
   }
   .vue-monkey .info-block .info-block-detail .label {
     font-size: 12px;
@@ -71,7 +72,7 @@
   }
   .vue-monkey .fixed-block {
     pointer-events:auto;
-    padding: 4px 8px 0 20px;
+    padding: 0 8px 0 20px;
   }
   .vue-monkey .fixed-block .goto-id {
     pointer-events:auto;
@@ -240,6 +241,7 @@
         posts.push({
             title: "BFA info",
             info: [
+                { label: "cs-id", value: dataLayer.get("page.content.csId") || "not set" },
                 { label: "exclusive", value: dataLayer.get("page.content.bfa.campaignIsExclusive") ? "yes" : "no" },
                 { label: "category", value: dataLayer.get("page.content.bfa.category") || "not set" },
                 { label: "layout", value: dataLayer.get("page.content.bfa.layout") || "not set" },
