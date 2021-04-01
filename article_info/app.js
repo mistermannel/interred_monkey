@@ -1,10 +1,10 @@
 (function (window) {
-    let version = "3.3";
+    let version = "3.4";
     let appTemplate = `<style>
   .vue-monkey {
     display: none;
     z-index: 10000001;
-    position: fixed; top: 0px; left: 0px;
+    position: fixed; top: 88px; left: 0px;
     width: 100%; height: 100%;
     padding: 10px;
     font-family:Roboto, sans-serif; font-size:14px; -webkit-font-smoothing:antialiased; -webkit-tap-highlight-color:rgba(0, 0, 0, 0);
