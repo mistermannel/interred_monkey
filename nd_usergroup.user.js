@@ -7,9 +7,17 @@
 // @include /^https?://(.*)-nd\.nerddoktor\.de/
 // @include /^https?://(.*\.)?netdoktor\.dev/
 // @include /^https?://(.*\.)?netdoktor\.localhost/
+// @include     /^https?://www\.mylife\.de/
+// @include     /^https?://stage\.mylife\.de/
+// @include     /^https?://(.*\.)?mylife\.dev/
+// @include     /^https?://(.*\.)?mylife\.localhost/
+// @include     /^https?://www\.gesundheitsportal-privat\.de/
+// @include     /^https?://stage\.gesundheitsportal-privat\.de/
+// @include     /^https?://(.*\.)?gesundheitsportal-privat\.dev/
+// @include     /^https?://(.*\.)?gesundheitsportal-privat\.localhost/
 // @downloadURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_usergroup.user.js
 // @updateURL https://raw.githubusercontent.com/NetDoktorDE/interred_monkey/master/nd_usergroup.user.js
-// @version 1.0
+// @version 1.1
 // @grant none
 // ==/UserScript==
 
