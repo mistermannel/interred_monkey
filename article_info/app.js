@@ -258,7 +258,7 @@
                 ]});
     }
 
-    function onPageformation(dataLayer, posts) {
+ function onPageformation(dataLayer, posts) {
         //wordlink counter
         let wordlinkCount = document.getElementsByClassName("wlm-link").length;
         //image gallery counter
@@ -275,6 +275,10 @@
         let ndtoolsTeaserCount = document.getElementsByClassName("ndpm-ndtools-wrapper").length;
         //qt/lvc counter
         let qtAndLvcCount = (document.getElementById("mini-sc") !== null) ? "1" : "0";
+        // ad counter content
+        let adContentCount = document.getElementsByClassName("content-ad").length;
+        // ad counter sidebar
+        let adSidebarCount = document.getElementsByClassName("sidebar-ad").length;
 
         posts.push({
             title: "OnPage info",
@@ -287,6 +291,8 @@
                 { label: "lvc teaser", value: ""+lvcTeaserCount },
                 { label: "hpf teaser", value: ""+hpfTeaserCount },
                 { label: "nd tools teaser", value: ""+ndtoolsTeaserCount },
+                { label: "content ads", value: ""+adContentCount },
+                { label: "sidebar ads", value: ""+adSidebarCount },
                 ]});
     }
 
